@@ -1,0 +1,6 @@
+.truncate-title {
+  max-width: 150px; /* Adjust this width as necessary */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
