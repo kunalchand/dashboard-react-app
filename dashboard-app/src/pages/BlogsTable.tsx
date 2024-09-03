@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
-import Table from "../components/Table";
+import { useState } from "react";
 import ToolBar from "../components/ToolBar";
-import { BlogObject } from "../types/blog";
+import useCustomFetchHook from "../hooks/useCustomFetchHook";
+import Table from "./Table";
 
 const BlogsTable: React.FC = () => {
-  const [blogs, setBlogs] = useState<BlogObject[]>([]);
+  const {
+    data: blogs,
+    isPending,
+    error,
+  } = useCustomFetchHook("https://jsonplaceholder.typicode.com/posts");
   const [filterText, setFilterText] = useState<string>("");
-
-  useEffect(() => {
-    setTimeout(() => {
-      fetch("https://jsonplaceholder.typicode.com/posts")
-        .then((response) => response.json())
-        .then((json) => setBlogs(json))
-        .catch((error) => console.error("Error fetching data:", error));
-    }, 1000);
-  }, []);
 
   return (
     <>
       <ToolBar filterText={filterText} onFilterTextChange={setFilterText} />
-      <Table blogs={blogs} filterText={filterText} />
+      <Table
+        blogs={blogs}
+        filterText={filterText}
+        isPending={isPending}
+        error={error}
+      />
     </>
   );
 };
