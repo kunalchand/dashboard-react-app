@@ -7,24 +7,42 @@ const useFetch = (url: string) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      fetch(url)
-        .then((response) => {
-          if (!response.ok) {
-            throw Error("API fecth call failed");
-          }
-          return response.json();
-        })
-        .then((json) => {
-          setData(json);
-          setIsPending(false);
-          setError(null);
-        })
-        .catch((error) => {
+    const abortController = new AbortController();
+
+    (async () => {
+      try {
+        // Simulate the delay with setTimeout using a Promise
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Perform the fetch operation
+        const response = await fetch(url, { signal: abortController.signal });
+
+        // Check if the response is okay (status code in the range 200-299)
+        if (!response.ok) {
+          throw new Error("API fetch call failed");
+        }
+
+        // Parse the response data as JSON
+        const json = await response.json();
+
+        // Update state with the fetched data
+        setData(json);
+        setIsPending(false);
+        setError(null);
+      } catch (error: any) {
+        // Handle any errors that occur during the fetch
+        if (error.name === "AbortError") {
+          console.log("Fetch aborted");
+        } else {
           setIsPending(false);
           setError(error.message);
-        });
-    }, 1000);
+        }
+      }
+
+      return () => {
+        abortController.abort();
+      };
+    })();
   }, []);
 
   return { data, isPending, error };
