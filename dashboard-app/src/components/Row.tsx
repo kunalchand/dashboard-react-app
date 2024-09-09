@@ -1,4 +1,5 @@
 import { TableRow } from "@mui/material";
+import { Link } from "react-router-dom";
 import "../styles/Row.css";
 import StyledTableCell from "../styles/StyledTableCell";
 import { BlogObject } from "../types/blog";
@@ -15,7 +16,7 @@ const Row: React.FC<IRowProps> = ({ row }) => {
         {row.userId}
       </StyledTableCell>
       <StyledTableCell sx={{ margin: "auto", textAlign: "center" }}>
-        {row.id}
+        <Link to={`/blogs/${row.id}`}>{row.id} </Link>
       </StyledTableCell>
       <StyledTableCell
         className="truncate-title"

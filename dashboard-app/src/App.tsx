@@ -8,11 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import BlogDetail from "./pages/BlogDetail";
 import BlogsTable from "./pages/BlogsTable";
 import ErrorPage from "./pages/ErrorPage";
 import Root from "./routes/Root";
-
-const navItems = ["Home", "Blogs", "Contact"];
 
 function App() {
   return (
@@ -53,6 +52,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Root />}></Route>
             <Route path="/blogs" element={<BlogsTable />}></Route>
+            <Route path="/blogs/:id" element={<BlogDetail />}></Route>
             <Route path="*" element={<ErrorPage />}></Route>
           </Routes>
         </Box>

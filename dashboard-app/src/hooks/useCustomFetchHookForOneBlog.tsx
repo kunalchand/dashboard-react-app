@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BlogObject } from "../types/blog";
 
 const useFetch = (url: string) => {
-  const [data, setData] = useState<BlogObject[]>([]);
+  const [data, setData] = useState<BlogObject>();
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -12,7 +12,7 @@ const useFetch = (url: string) => {
     (async () => {
       try {
         // Simulate the delay with setTimeout using a Promise
-        await new Promise((resolve) => setTimeout(resolve, 700));
+        await new Promise((resolve) => setTimeout(resolve, 350));
 
         // Perform the fetch operation
         const response = await fetch(url, { signal: abortController.signal });
