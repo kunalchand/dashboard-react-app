@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import useCustomFetchHookForOneBlog from "../hooks/useCustomFetchHookForOneBlog";
 
-const BlogDetail: React.FC = function () {
+const BlogDetail: React.FC = () => {
   const { id } = useParams();
   const {
     data: blog,
